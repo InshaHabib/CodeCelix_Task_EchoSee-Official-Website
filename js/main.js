@@ -22,28 +22,64 @@
 
 		const willExpand = typeof expand === 'boolean' ? expand : !(button.getAttribute('aria-expanded') === 'true');
 
+		// If expanding, collapse any other open panels first (clean collapse without recursion)
+		if (willExpand) {
+			buttons.forEach((other) => {
+				if (other === button) return;
+				if (other.getAttribute('aria-expanded') === 'true') {
+					const otherPanel = document.getElementById(other.getAttribute('aria-controls'));
+					other.setAttribute('aria-expanded', 'false');
+					if (otherPanel) {
+						otherPanel.setAttribute('aria-hidden', 'true');
+						if (!reduceMotion) {
+							otherPanel.style.maxHeight = otherPanel.scrollHeight + 'px';
+							// force layout then collapse
+							// eslint-disable-next-line @microsoft/sdl/no-document-read
+							void otherPanel.offsetHeight;
+							otherPanel.style.maxHeight = '0px';
+							const onEnd = function () {
+								otherPanel.hidden = true;
+								otherPanel.style.maxHeight = '';
+								otherPanel.removeEventListener('transitionend', onEnd);
+							};
+							otherPanel.addEventListener('transitionend', onEnd);
+						} else {
+							otherPanel.style.maxHeight = '0px';
+							otherPanel.hidden = true;
+						}
+					}
+				}
+			});
+		}
+
+		// Update the target button/panel state
 		button.setAttribute('aria-expanded', String(willExpand));
 		panel.setAttribute('aria-hidden', String(!willExpand));
 		if (willExpand) {
 			panel.hidden = false;
-			// animate by setting explicit maxHeight (allow transition in CSS)
-			if (!reduceMotion) panel.style.maxHeight = panel.scrollHeight + 'px';
-			else panel.style.maxHeight = 'none';
+			if (!reduceMotion) {
+				panel.style.maxHeight = panel.scrollHeight + 'px';
+				const onExpandEnd = function () {
+					panel.style.maxHeight = '';
+					panel.removeEventListener('transitionend', onExpandEnd);
+				};
+				panel.addEventListener('transitionend', onExpandEnd);
+			} else {
+				panel.style.maxHeight = 'none';
+			}
 		} else {
 			// collapse
 			if (!reduceMotion) {
-				// set maxHeight to 0 to animate
 				panel.style.maxHeight = panel.scrollHeight + 'px';
-				// force layout then collapse
 				// eslint-disable-next-line @microsoft/sdl/no-document-read
 				void panel.offsetHeight;
 				panel.style.maxHeight = '0px';
-				// when transition ends, hide the panel
-				const onTransitionEnd = function () {
+				const onCollapseEnd = function () {
 					panel.hidden = true;
-					panel.removeEventListener('transitionend', onTransitionEnd);
+					panel.style.maxHeight = '';
+					panel.removeEventListener('transitionend', onCollapseEnd);
 				};
-				panel.addEventListener('transitionend', onTransitionEnd);
+				panel.addEventListener('transitionend', onCollapseEnd);
 			} else {
 				panel.style.maxHeight = '0px';
 				panel.hidden = true;
@@ -80,25 +116,37 @@
 
 		// Keyboard support
 		btn.addEventListener('keydown', (e) => {
-			switch (e.key) {
-				case 'ArrowDown':
-					e.preventDefault();
-					focusNext(idx);
-					break;
-				case 'ArrowUp':
-					e.preventDefault();
-					focusPrev(idx);
-					break;
-				case 'Home':
-					e.preventDefault();
-					buttons[0].focus();
-					break;
-				case 'End':
-					e.preventDefault();
-					buttons[buttons.length - 1].focus();
-					break;
-				default:
-					break;
+			/*
+				Keyboard support per WAI-ARIA Authoring Practices:
+				- ArrowUp/ArrowDown: move focus between buttons
+				- Home/End: jump to first/last
+				- Enter/Space: toggle the focused panel
+			*/
+			if (e.key === 'ArrowDown') {
+				e.preventDefault();
+				focusNext(idx);
+				return;
+			}
+			if (e.key === 'ArrowUp') {
+				e.preventDefault();
+				focusPrev(idx);
+				return;
+			}
+			if (e.key === 'Home') {
+				e.preventDefault();
+				buttons[0].focus();
+				return;
+			}
+			if (e.key === 'End') {
+				e.preventDefault();
+				buttons[buttons.length - 1].focus();
+				return;
+			}
+			if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
+				// Enter and Space toggle the panel; prevent default to avoid double-activation
+				e.preventDefault();
+				toggle(btn);
+				return;
 			}
 		});
 	});
