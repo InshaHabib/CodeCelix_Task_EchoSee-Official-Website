@@ -50,7 +50,7 @@
 		if (!reduceMotion) {
 			panel.style.maxHeight = panel.scrollHeight + 'px';
 			panel.addEventListener('transitionend', function onEnd() {
-				panel.style.maxHeight = '';
+				panel.style.maxHeight = 'none';
 				panel.removeEventListener('transitionend', onEnd);
 			});
 		} else {
