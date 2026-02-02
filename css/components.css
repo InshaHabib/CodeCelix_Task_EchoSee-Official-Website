@@ -240,14 +240,15 @@
 	pointer-events:none;
 	transition:all 200ms ease;
 	background:transparent;
-	padding:0 4px;
+	padding:4px 8px;
+	margin-top:-4px;
 }
 
 .form-label::after{
 	content:'';
 	position:absolute;
-	left:0;
-	right:0;
+	left:-4px;
+	right:-4px;
 	bottom:0;
 	height:1px;
 	background:var(--bg);
@@ -386,10 +387,61 @@
 
 /* ============ Footer ============ */
 .footer{
-	text-align:center;
+	width:100%;
+	max-width:var(--max-width);
 	padding:40px 24px;
 	color:var(--muted);
 	font-size:0.875rem;
 	margin-top:60px;
 	border-top:1px solid #e6e9ef;
+}
+
+.footer__content{
+	display:flex;
+	justify-content:space-between;
+	align-items:center;
+	flex-wrap:wrap;
+	gap:20px;
+}
+
+.footer__brand{
+	text-align:left;
+}
+
+.footer__logo{
+	font-size:1.25rem;
+	font-weight:700;
+	color:var(--accent);
+	margin:0 0 8px 0;
+}
+
+.footer__copyright{
+	margin:0;
+	font-size:0.875rem;
+}
+
+.footer__links{
+	flex-shrink:0;
+}
+
+.footer__contact-btn{
+	display:inline-block;
+	padding:12px 28px;
+	background:var(--accent);
+	color:#fff;
+	text-decoration:none;
+	border-radius:6px;
+	font-weight:600;
+	transition:all 200ms ease;
+}
+
+.footer__contact-btn:hover{
+	background:#0952cc;
+	box-shadow:0 0 20px var(--accent-glow);
+	transform:translateY(-2px);
+}
+
+.footer__contact-btn:focus-visible{
+	outline:none;
+	box-shadow:0 0 0 3px rgba(255,255,255,0.5), 0 0 0 6px var(--accent);
 }

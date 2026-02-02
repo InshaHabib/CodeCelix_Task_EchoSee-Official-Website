@@ -73,3 +73,27 @@
 		padding:12px 10px
 	}
 }
+
+/* Footer mobile responsive */
+@media(max-width:600px){
+	.footer{
+		padding:32px 16px;
+		margin-top:40px;
+	}
+	
+	.footer__content{
+		flex-direction:column;
+		text-align:center;
+		gap:24px;
+	}
+	
+	.footer__brand{
+		text-align:center;
+	}
+	
+	.footer__contact-btn{
+		width:100%;
+		text-align:center;
+		padding:14px 24px;
+	}
+}

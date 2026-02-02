@@ -5,20 +5,29 @@
 	box-sizing:border-box;
 }
 
-html,body{
-	height:100%;
+html{
+	min-height:100%;
 }
 
 body{
 	font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
 	color:var(--text);
 	background:linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
-	background-size: 200% 200%;
-	animation: gradientShift 8s ease infinite;
+	background-attachment:fixed;
 	line-height:1.5;
+	margin:0;
 	padding:24px;
+	min-height:100vh;
 	display:flex;
-	justify-content:center;
+	flex-direction:column;
+	align-items:center;
+}
+
+/* Main container */
+main{
+	width:100%;
+	max-width:var(--max-width);
+	flex:1;
 }
 
 /* Gradient animation */
@@ -27,16 +36,9 @@ body{
 	50%{background-position:100% 50%}
 }
 
-/* Main container */
-main{
-	width:100%;
-	max-width:var(--max-width);
-}
-
 /* Reduced motion preference */
 @media(prefers-reduced-motion: reduce){
 	body{
-		animation:none;
 		background:linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
 	}
 }

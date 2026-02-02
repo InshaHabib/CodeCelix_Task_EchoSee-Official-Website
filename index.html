@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,16 +19,16 @@
     <!-- Screen reader live region for announcements -->
     <div id="a11y-announcer" class="sr-only" aria-live="polite" aria-atomic="true"></div>
     
-    <main id="main-content">
-        <header class="hero">
-            <h1>See What You Cannot Hear</h1>
-            <p class="hero__tagline">Real-time subtitles on AR-enabled smart glasses powered by AI.</p>
-            <div class="hero__cta">
-                <button class="btn btn--primary">Pre-Order Now</button>
-                <button class="btn btn--secondary">Learn More</button>
-            </div>
-        </header>
+    <header class="hero">
+        <h1>See What You Cannot Hear</h1>
+        <p class="hero__tagline">Real-time subtitles on AR-enabled smart glasses powered by AI.</p>
+        <div class="hero__cta">
+            <button class="btn btn--primary">Pre-Order Now</button>
+            <button class="btn btn--secondary">Learn More</button>
+        </div>
+    </header>
 
+    <main id="main-content">
         <!-- FAQ: Accessible accordion following WAI-ARIA Authoring Practices -->
         <section id="faq" aria-label="Frequently asked questions" aria-describedby="faq-instructions" class="faq">
             <h2>Frequently Asked Questions</h2>
@@ -78,7 +77,6 @@
                     <p>EchoSee supports English and Urdu natively. Premium subscriptions unlock 20+ additional languages with real-time translation capabilities.</p>
                 </div>
             </div>
-
         </section>
 
         <!-- Contact Form with Floating Labels -->
@@ -133,9 +131,17 @@
             </form>
         </section>
     </main>
-    
+
     <footer class="footer">
-        <p>&copy; 2026 EchoSee. All rights reserved.</p>
+        <div class="footer__content">
+            <div class="footer__brand">
+                <p class="footer__logo">EchoSee</p>
+                <p class="footer__copyright">&copy; 2026 EchoSee. All rights reserved.</p>
+            </div>
+            <div class="footer__links">
+                <a href="#contact" class="footer__contact-btn">Contact Us</a>
+            </div>
+        </div>
     </footer>
 </body>
 </html>
