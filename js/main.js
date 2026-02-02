@@ -7,6 +7,20 @@
 (function () {
 	'use strict';
 
+	// Screen reader live announcer
+	let announcer = null;
+	function announceToScreenReader(message) {
+		if (!announcer) {
+			announcer = document.getElementById('a11y-announcer');
+		}
+		if (announcer) {
+			announcer.textContent = '';
+			setTimeout(() => {
+				announcer.textContent = message;
+			}, 100);
+		}
+	}
+
 	// Select all FAQ toggle buttons
 	const buttons = Array.from(document.querySelectorAll('.faq__button'));
 	if (!buttons.length) return; // safe no-op if markup not present
@@ -46,6 +60,9 @@
 	function expandPanel(button, panel) {
 		button.setAttribute('aria-expanded', 'true');
 		panel.setAttribute('aria-hidden', 'false');
+		// Announce to screen readers
+		const question = button.textContent.trim();
+		announceToScreenReader(question + '. Answer expanded.');
 		panel.hidden = false;
 		if (!reduceMotion) {
 			panel.style.maxHeight = panel.scrollHeight + 'px';
@@ -62,6 +79,9 @@
 	function collapsePanel(button, panel) {
 		button.setAttribute('aria-expanded', 'false');
 		panel.setAttribute('aria-hidden', 'true');
+		// Announce to screen readers
+		const question = button.textContent.trim();
+		announceToScreenReader(question + '. Answer collapsed.');
 		if (!reduceMotion) {
 			const h = panel.scrollHeight;
 			panel.style.maxHeight = h + 'px';
@@ -146,5 +166,152 @@
 	// Expose a small API for tests or future enhancements
 	window.__FAQ = { toggle };
 
+})();
+
+/* Accessible Contact Form
+	 - Floating labels with CSS :placeholder-shown
+	 - Real-time validation with ARIA
+	 - Loading and success animations
+	 - Keyboard accessible
+*/
+
+(function() {
+	'use strict';
+	
+	const form = document.getElementById('contact-form');
+	if (!form) return;
+	
+	const submitBtn = form.querySelector('.contact__submit');
+	const successMessage = document.getElementById('form-success');
+	
+	// Field configurations
+	const fields = {
+		name: {
+			element: form.querySelector('#name'),
+			error: form.querySelector('#name-error'),
+			required: true,
+			pattern: null,
+			errorMessage: 'Please enter your full name'
+		},
+		email: {
+			element: form.querySelector('#email'),
+			error: form.querySelector('#email-error'),
+			required: true,
+			pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+			errorMessage: 'Please enter a valid email address'
+		},
+		subject: {
+			element: form.querySelector('#subject'),
+			error: form.querySelector('#subject-error'),
+			required: true,
+			pattern: null,
+			errorMessage: 'Please select a subject'
+		},
+		message: {
+			element: form.querySelector('#message'),
+			error: form.querySelector('#message-error'),
+			required: true,
+			pattern: null,
+			errorMessage: 'Please enter your message',
+			minLength: 10
+		}
+	};
+	
+	// Validate a single field
+	function validateField(fieldName) {
+		const field = fields[fieldName];
+		const element = field.element;
+		const errorEl = field.error;
+		let isValid = true;
+		let errorText = '';
+		
+		// Check required
+		if (field.required && !element.value.trim()) {
+			isValid = false;
+			errorText = field.errorMessage;
+		}
+		
+		// Check pattern
+		if (isValid && field.pattern && !field.pattern.test(element.value.trim())) {
+			isValid = false;
+			errorText = field.errorMessage;
+		}
+		
+		// Check min length for textarea
+		if (isValid && field.minLength && element.value.trim().length < field.minLength) {
+			isValid = false;
+			errorText = `Message must be at least ${field.minLength} characters`;
+		}
+		
+		// Update ARIA and visual state
+		element.setAttribute('aria-invalid', String(!isValid));
+		errorEl.textContent = errorText;
+		
+		return isValid;
+	}
+	
+	// Real-time validation on blur
+	Object.keys(fields).forEach(fieldName => {
+		const field = fields[fieldName];
+		field.element.addEventListener('blur', () => {
+			validateField(fieldName);
+		});
+		
+		// Clear error on input
+		field.element.addEventListener('input', () => {
+			if (field.element.getAttribute('aria-invalid') === 'true') {
+				validateField(fieldName);
+			}
+		});
+	});
+	
+	// Form submission
+	form.addEventListener('submit', async (e) => {
+		e.preventDefault();
+		
+		// Validate all fields
+		let isFormValid = true;
+		let firstInvalidField = null;
+		
+		Object.keys(fields).forEach(fieldName => {
+			const isValid = validateField(fieldName);
+			if (!isValid && !firstInvalidField) {
+				firstInvalidField = fields[fieldName].element;
+				isFormValid = false;
+			}
+		});
+		
+		if (!isFormValid) {
+			// Focus first invalid field
+			if (firstInvalidField) {
+				firstInvalidField.focus();
+			}
+			// Announce to screen reader
+			const announcer = document.getElementById('a11y-announcer');
+			if (announcer) {
+				announcer.textContent = 'Please correct the errors in the form';
+			}
+			return;
+		}
+		
+		// Show loading state
+		submitBtn.classList.add('loading');
+		submitBtn.disabled = true;
+		submitBtn.setAttribute('aria-busy', 'true');
+		
+		// Simulate API call
+		await new Promise(resolve => setTimeout(resolve, 1500));
+		
+		// Show success message
+		form.hidden = true;
+		successMessage.hidden = false;
+		
+		// Announce to screen reader
+		const announcer = document.getElementById('a11y-announcer');
+		if (announcer) {
+			announcer.textContent = 'Form submitted successfully. We will get back to you soon.';
+		}
+	});
+	
 })();
 

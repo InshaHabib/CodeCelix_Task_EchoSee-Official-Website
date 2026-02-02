@@ -3,7 +3,7 @@
 
 **Project Objective:** Design and develop a modern, animated, accessibility-first website for EchoSee Smart Glasses.
 
-**Responsibility** Partnerships, FAQ, Contact + Accessibility Lead  
+**Responsibilities** Partnerships, FAQ, Contact + Accessibility Lead  
 
 ## Project Overview
 
@@ -159,50 +159,6 @@ Then visit: `http://localhost:8080`
 ### Animations
 - [ ] Smooth transitions in normal motion preference
 - [ ] No animations with `prefers-reduced-motion: reduce`
-
----
-
-## 5-Day Development Plan
-
-### ✅ Day 1: Accessible FAQ Accordion
-- Semantic HTML structure
-- ARIA roles & keyboard support
-- Focus states & animations
-- Reduced motion support
-- **Commit:** "Day 1: FAQ accordion with ARIA and keyboard support"
-
-### 📅 Day 2: Contact Form + Floating Labels
-- Contact form structure
-- Floating label animations
-- Real-time input validation
-- ARIA attributes for errors
-- Form focus & success states
-- **Commit:** "Day 2: Contact form with floating labels and accessibility"
-
-### 📅 Day 3: Logo Carousel
-- Carousel structure & markup
-- Auto-scroll & manual navigation
-- Smooth CSS transitions
-- Keyboard controls
-- Screen reader announcements
-- **Commit:** "Day 3: Accessible logo carousel with keyboard support"
-
-### 📅 Day 4: Partnerships + Card Flip Animations
-- Partnership card containers
-- Flip animation on hover/focus
-- Focus outlines for keyboard users
-- Responsive layout
-- Optional mobile toggle
-- **Commit:** "Day 4: Partnerships cards with flip animations and accessibility"
-
-### 📅 Day 5: Accessibility Audit & Polish
-- Review all focus states
-- Verify ARIA roles site-wide
-- Check color contrast (WCAG AA)
-- Test keyboard navigation end-to-end
-- Screen reader audit
-- Polish animations & interactions
-- **Commit:** "Day 5: Accessibility audit and site-wide polishing"
 
 ---
 
