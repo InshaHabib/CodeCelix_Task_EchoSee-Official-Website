@@ -35,32 +35,32 @@
             
             <form id="contact-form" class="contact__form" novalidate>
                 <div class="form-group">
+                    <input type="text" id="name" name="name" class="form-input" required autocomplete="name" aria-describedby="name-error">
                     <label for="name" class="form-label">Full Name</label>
-                    <input type="text" id="name" name="name" class="form-input" required autocomplete="name" aria-describedby="name-error" placeholder=" ">
                     <span id="name-error" class="form-error" aria-live="polite"></span>
                 </div>
                 
                 <div class="form-group">
+                    <input type="email" id="email" name="email" class="form-input" required autocomplete="email" aria-describedby="email-error">
                     <label for="email" class="form-label">Email Address</label>
-                    <input type="email" id="email" name="email" class="form-input" required autocomplete="email" aria-describedby="email-error" placeholder=" ">
                     <span id="email-error" class="form-error" aria-live="polite"></span>
                 </div>
                 
                 <div class="form-group">
-                    <label for="subject" class="form-label">Subject</label>
                     <select id="subject" name="subject" class="form-input" required aria-describedby="subject-error">
-                        <option value=""></option>
+                        <option value="" disabled selected></option>
                         <option value="general">General Inquiry</option>
                         <option value="preorder">Pre-Order Question</option>
                         <option value="partnership">Partnership Opportunity</option>
                         <option value="support">Technical Support</option>
                     </select>
+                    <label for="subject" class="form-label">Subject</label>
                     <span id="subject-error" class="form-error" aria-live="polite"></span>
                 </div>
                 
                 <div class="form-group">
+                    <textarea id="message" name="message" class="form-input form-textarea" rows="5" required aria-describedby="message-error"></textarea>
                     <label for="message" class="form-label">Message</label>
-                    <textarea id="message" name="message" class="form-input form-textarea" rows="5" required aria-describedby="message-error" placeholder=" "></textarea>
                     <span id="message-error" class="form-error" aria-live="polite"></span>
                 </div>
                 
