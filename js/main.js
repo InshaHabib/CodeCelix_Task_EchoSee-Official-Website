@@ -194,4 +194,82 @@
         });
     }
 
+    /* --- Partnership Page Scripts --- */
+    const carousel = document.querySelector('.carousel-track');
+    const prevBtn = document.querySelector('.carousel-btn--prev');
+    const nextBtn = document.querySelector('.carousel-btn--next');
+    
+    if (carousel && prevBtn && nextBtn) {
+        const itemWidth = 180; // Approximate width of carousel item + gap
+        
+        prevBtn.addEventListener('click', () => {
+            carousel.style.animation = 'none';
+            carousel.offsetHeight; // Trigger reflow
+            const currentTransform = getComputedStyle(carousel).transform;
+            if (currentTransform !== 'none') {
+                const matrix = new DOMMatrix(currentTransform);
+                let translateX = matrix.m41;
+                translateX = Math.min(0, translateX + itemWidth);
+                carousel.style.transform = `translateX(${translateX}px)`;
+            }
+            setTimeout(() => {
+                carousel.style.animation = 'carouselScroll 30s linear infinite';
+            }, 50);
+        });
+        
+        nextBtn.addEventListener('click', () => {
+            carousel.style.animation = 'none';
+            carousel.offsetHeight;
+            const maxTranslate = -((carousel.scrollWidth / 2) - 300);
+            const currentTransform = getComputedStyle(carousel).transform;
+            let translateX = 0;
+            if (currentTransform !== 'none') {
+                const matrix = new DOMMatrix(currentTransform);
+                translateX = matrix.m41;
+            }
+            translateX = Math.max(maxTranslate, translateX - itemWidth);
+            carousel.style.transform = `translateX(${translateX}px)`;
+            setTimeout(() => {
+                carousel.style.animation = 'carouselScroll 30s linear infinite';
+            }, 50);
+        });
+    }
+    
+    // Stat counter animation
+    const statNumbers = document.querySelectorAll('.stat-number');
+    if (statNumbers.length) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const el = entry.target;
+                    const target = parseInt(el.dataset.target);
+                    const duration = 2000;
+                    const step = target / (duration / 16);
+                    let current = 0;
+                    
+                    const animate = () => {
+                        current += step;
+                        if (current < target) {
+                            el.textContent = Math.floor(current);
+                            requestAnimationFrame(animate);
+                        } else {
+                            el.textContent = target;
+                        }
+                    };
+                    
+                    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                    if (reduceMotion) {
+                        el.textContent = target;
+                    } else {
+                        animate();
+                    }
+                    
+                    observer.unobserve(el);
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        statNumbers.forEach(el => observer.observe(el));
+    }
+
 })();
