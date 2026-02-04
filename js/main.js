@@ -183,6 +183,7 @@
             // Show loading state
             submitBtn.classList.add('loading');
             submitBtn.disabled = true;
+            submitBtn.setAttribute('aria-busy', 'true');
 
             // Simulate API call
             await new Promise(resolve => setTimeout(resolve, 1500));
@@ -330,5 +331,16 @@
         
         statNumbers.forEach(el => observer.observe(el));
     }
+    
+    // Flip card keyboard support
+    const flipCards = document.querySelectorAll('.flip-card');
+    flipCards.forEach(card => {
+        card.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
+                e.preventDefault();
+                card.click();
+            }
+        });
+    });
 
 })();

@@ -64,12 +64,12 @@
                     <span id="message-error" class="form-error" aria-live="polite"></span>
                 </div>
                 
-                <button type="submit" class="btn btn--primary contact__submit">
+                <button type="submit" class="btn btn--primary contact__submit" aria-busy="false">
                     <span class="btn__text">Send Message</span>
                     <span class="btn__loader"></span>
                 </button>
                 
-                <div id="form-success" class="form-success" aria-live="polite" hidden>
+                <div id="form-success" class="form-success" role="alert" aria-live="polite" hidden>
                     <svg class="form-success__icon" viewBox="0 0 24 24" width="48" height="48" aria-hidden="true">
                         <circle cx="12" cy="12" r="11" fill="none" stroke="currentColor" stroke-width="2"/>
                         <path d="M7 12l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
