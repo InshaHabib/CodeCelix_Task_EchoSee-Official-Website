@@ -1,9 +1,20 @@
 'use client';
 
-import { memo } from 'react';
+import { memo, useState, useEffect } from 'react';
 
 // Long, smooth, shining and glowing animated lines - SLOW speed
 function AnimatedLines() {
+    const [mounted, setMounted] = useState(false);
+
+    // Only render on client to avoid hydration mismatch
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    if (!mounted) {
+        return <div className="animated-lines" aria-hidden="true" />;
+    }
+
     return (
         <div
             className="animated-lines"
