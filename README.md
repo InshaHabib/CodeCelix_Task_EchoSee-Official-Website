@@ -3,6 +3,11 @@
 
 **Project Objective:** Design and develop a modern, animated, accessibility-first website for EchoSee Smart Glasses.
 
+**Tech Stack:** HTML5, CSS3, JavaScript
+
+**Developed by:** - Muhammad Junaid Akbar
+**GitHub:** [@junaidakbar](https://github.com/junaidakbar)
+
 **Responsibilities:** Partnerships, FAQ, Contact + Accessibility Lead
 
 ## Project Overview
