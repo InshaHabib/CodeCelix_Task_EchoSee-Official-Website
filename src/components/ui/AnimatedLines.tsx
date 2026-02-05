@@ -26,10 +26,21 @@ function AnimatedLines() {
                 preserveAspectRatio="none"
                 style={{ transform: 'translateZ(0)' }}
             >
-                {/* Enhanced Glow & Shine Filters */}
+                {/* Enhanced Glow & Shine Filters - Optimized for Performance */}
                 <defs>
-                    {/* Intense Orange Glow */}
-                    <filter id="glowOrangeIntense" x="-100%" y="-100%" width="300%" height="300%">
+                    {/* Intense Orange Glow - Reduced region and deviation for performance */}
+                    <filter id="glowOrangeIntense" x="-50%" y="-50%" width="200%" height="200%">
+                        <feGaussianBlur stdDeviation="6" result="blur1" />
+                        <feGaussianBlur stdDeviation="3" result="blur2" />
+                        <feMerge>
+                            <feMergeNode in="blur1" />
+                            <feMergeNode in="blur2" />
+                            <feMergeNode in="SourceGraphic" />
+                        </feMerge>
+                    </filter>
+
+                    {/* Intense Purple Glow */}
+                    <filter id="glowPurpleIntense" x="-50%" y="-50%" width="200%" height="200%">
                         <feGaussianBlur stdDeviation="8" result="blur1" />
                         <feGaussianBlur stdDeviation="4" result="blur2" />
                         <feMerge>
@@ -39,20 +50,9 @@ function AnimatedLines() {
                         </feMerge>
                     </filter>
 
-                    {/* Intense Purple Glow */}
-                    <filter id="glowPurpleIntense" x="-100%" y="-100%" width="300%" height="300%">
-                        <feGaussianBlur stdDeviation="10" result="blur1" />
-                        <feGaussianBlur stdDeviation="5" result="blur2" />
-                        <feMerge>
-                            <feMergeNode in="blur1" />
-                            <feMergeNode in="blur2" />
-                            <feMergeNode in="SourceGraphic" />
-                        </feMerge>
-                    </filter>
-
                     {/* Shine Effect */}
-                    <filter id="shine" x="-100%" y="-100%" width="300%" height="300%">
-                        <feGaussianBlur stdDeviation="6" result="blur" />
+                    <filter id="shine" x="-50%" y="-50%" width="200%" height="200%">
+                        <feGaussianBlur stdDeviation="5" result="blur" />
                         <feColorMatrix in="blur" type="matrix" values="1 0 0 0 0.2  0 1 0 0 0.1  0 0 1 0 0  0 0 0 1 0" result="glow" />
                         <feMerge>
                             <feMergeNode in="glow" />
