@@ -1,3 +1,4 @@
+
 # EchoSee Website
 
 A Next.js website for EchoSee AR smart glasses - assistive technology that helps people with hearing impairments by displaying real-time speech-to-text subtitles.
@@ -48,3 +49,4 @@ Open http://localhost:3000 in your browser.
 ## Notes
 
 The chatbot uses the Groq API. You'll need a valid API key for it to work. Get one from https://console.groq.com/
+
