@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EchoSee — Smart Glasses for the Hearing Impaired</title>
+    
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/utilities.css">
+    
+    <script src="js/main.js" defer></script>
+</head>
+<body>
+    <!-- Skip navigation link for keyboard users -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <!-- Screen reader live region for announcements -->
+    <div id="a11y-announcer" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+    
+    <header class="hero">
+        <h1>See What You Cannot Hear</h1>
+        <p class="hero__tagline">Real-time subtitles on AR-enabled smart glasses powered by AI.</p>
+        <div class="hero__cta">
+            <button class="btn btn--primary">Pre-Order Now</button>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <!-- FAQ: Accessible accordion following WAI-ARIA Authoring Practices -->
+        <section id="faq" aria-label="Frequently asked questions" aria-describedby="faq-instructions" class="faq">
+            <h2>Frequently Asked Questions</h2>
+            <p id="faq-instructions" class="sr-only">Use Tab to navigate the questions. Press Enter or Space to toggle an answer. Only one answer is open at a time.</p>
+
+            <div class="faq__item">
+                <h3 class="faq__heading">
+                    <button id="faq1-button" class="faq__button" aria-expanded="false" aria-controls="faq1-panel" aria-describedby="faq-instructions">
+                        How does EchoSee work?
+                    </button>
+                </h3>
+                <div id="faq1-panel" class="faq__panel" role="region" aria-labelledby="faq1-button" hidden>
+                    <p>EchoSee uses an AI-powered microphone to capture speech in real time. The audio is processed by our on-device AI chip, converted to text, and displayed as subtitles on the AR lens with optional emoji-based emotion indicators.</p>
+                </div>
+            </div>
+
+            <div class="faq__item">
+                <h3 class="faq__heading">
+                    <button id="faq2-button" class="faq__button" aria-expanded="false" aria-controls="faq2-panel" aria-describedby="faq-instructions">
+                        What is the battery life?
+                    </button>
+                </h3>
+                <div id="faq2-panel" class="faq__panel" role="region" aria-labelledby="faq2-button" hidden>
+                    <p>EchoSee smart glasses offer 10–12 hours of continuous use on a single charge, depending on usage patterns and feature activation.</p>
+                </div>
+            </div>
+
+            <div class="faq__item">
+                <h3 class="faq__heading">
+                    <button id="faq3-button" class="faq__button" aria-expanded="false" aria-controls="faq3-panel" aria-describedby="faq-instructions">
+                        Does it work offline?
+                    </button>
+                </h3>
+                <div id="faq3-panel" class="faq__panel" role="region" aria-labelledby="faq3-button" hidden>
+                    <p>Yes. EchoSee is designed with an integrated AI processor chip that enables full offline functionality. No internet connection required for core features.</p>
+                </div>
+            </div>
+
+            <div class="faq__item">
+                <h3 class="faq__heading">
+                    <button id="faq4-button" class="faq__button" aria-expanded="false" aria-controls="faq4-panel" aria-describedby="faq-instructions">
+                        What languages are supported?
+                    </button>
+                </h3>
+                <div id="faq4-panel" class="faq__panel" role="region" aria-labelledby="faq4-button" hidden>
+                    <p>EchoSee supports English and Urdu natively. Premium subscriptions unlock 20+ additional languages with real-time translation capabilities.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer__content">
+            <div class="footer__brand">
+                <p class="footer__logo">EchoSee</p>
+                <p class="footer__copyright">&copy; 2026 EchoSee. All rights reserved.</p>
+            </div>
+            <div class="footer__links">
+                <a href="contact.html" class="footer__contact-btn">Contact Us</a>
+                <a href="partnerships.html" class="footer__contact-btn">Partnerships</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
